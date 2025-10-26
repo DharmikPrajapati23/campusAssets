@@ -19,9 +19,15 @@ load_dotenv()
 app = Flask(__name__)
 
 # CORS
-ALLOWED_ORIGINS = ["https://campus-assets-mauve.vercel.app"]
-CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": ALLOWED_ORIGINS}})
+# ALLOWED_ORIGINS = ["https://campus-assets-mauve.vercel.app"]
+# CORS(app, supports_credentials=True, resources={r"/api/*": {"origins": ALLOWED_ORIGINS}})
+CORS(
+    app,
+    resources={r"/api/*": {"origins": ["https://campus-assets-mauve.vercel.app", "http://localhost:3000"]}},
 
+    # resources={r"/*": {"origins": ["http://localhost:5173", "http://localhost:5175", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:5175", "http://127.0.0.1:3000"]}},
+    supports_credentials=True,
+)
 # --- Mongo / Env ---
 MONGO_URL = os.getenv("MONGO_URL")
 DB_NAME = os.getenv("DB_NAME", "Dataset")
